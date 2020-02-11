@@ -11,7 +11,7 @@ const Iframe = ({ iframe }) => {
                 title="Observatorio"
                 width="100%"
                 height="550"
-                style={{ border: '3px solid black', borderRadius: '10px' }}
+                style={{ border: '3px solid #96c1ea', borderRadius: '5px' }}
                 src={iframe}>
             </iframe>
 

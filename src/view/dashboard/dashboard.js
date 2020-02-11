@@ -9,46 +9,51 @@ const useStyles = makeStyles(dashboardStyles);
 
 const DashboardLayout = (props) => {
     const { history } = props;
-    const [user, setUser] = useState(null);
-    const [isLoading, setIsLoading] = useState(true);
+    const [data, setData] = useState();
     const { usersService } = useContext(DBContext);
     const authService = useContext(AuthContext);
     const classes = useStyles();
 
 
     useEffect(() => {
-        setIsLoading(true)
-        usersService.doObserveCurrentUser(user => {
-            if (!user.exists) {
-                alert("Usuario no registrado");
-                history.replace('/auth/login/');
-            }
-            if (user.data()) {
-                setUser(user.data())
-            }
-            setIsLoading(false);
-        })
+        const obtenerInfoData = async () => {
+            await usersService.doObserveCurrentUser(async (user) => {
+                if (!user.exists && !user.data()) {
+                    await authService.doSignOut().then(() => {
+                        alert("Usuario no registrado");
+                        history.replace('/auth/login/');
+                    });
+                }
+
+                setData(user.data())
+
+
+            });
+        };
+        obtenerInfoData();
 
     }, [usersService, authService, history])
-
+    console.log("Esta es la data que me llega", data)
     if (!authService.doCheckAuth()) {
         return <Redirect to={'/auth/login/'} />;
     }
 
 
+    if (!data) {
+        return <SpinkiSpinner />;
+    }
+
     return (
-        <>
-            {isLoading ? <SpinkiSpinner /> : (
-                <UserContext.Provider value={user}>
-                    <div className={classes.root}>
-                        <Nav
-                            history={history}
-                            authService={authService}
-                            user={user} />
-                    </div>
-                </UserContext.Provider>
-            )}
-        </>
+        data && (
+            <UserContext.Provider value={data}>
+                <div className={classes.root}>
+                    <Nav
+                        history={history}
+                        authService={authService}
+                        user={data} />
+                </div>
+            </UserContext.Provider>
+        )
     )
 }
 export default DashboardLayout;

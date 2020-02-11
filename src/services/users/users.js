@@ -19,14 +19,21 @@ class UsersService {
     doCreateUser = (user) => {
         this.usersProvider.doCreateUser(user);
     }
+
+    /**
+     * Función para cerrar sesión del usuario
+     */
+    doSignOut = () => {
+        this.usersProvider.doSignOut();
+    }
     /**
      * Funcion para obtener el usuario actual en sesión
      * @returns {Promise}
      */
     doObserveCurrentUser = (func) => {
-        const user = JSON.parse(localStorage.getItem('authUser'));
-        return this.usersProvider.doObserveCollectionDocument('users', user.uid, func);
-    };
+    const user = JSON.parse(localStorage.getItem('authUser'));
+    return this.usersProvider.doObserveCollectionDocument('users', user.uid, func);
+  };
     /**
      * Funcion para editar la información de un usuario
      * @param {string} id identificador del usuario

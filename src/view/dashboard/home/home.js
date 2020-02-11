@@ -1,6 +1,6 @@
 /* eslint-disable react/style-prop-object */
 import React, { useState, useContext } from 'react';
-import { TextField, Button, Box, Paper } from '@material-ui/core';
+import { TextField, Button, Box, Paper, Typography } from '@material-ui/core';
 import { UserContext, DBContext } from '../../../constants/context/context';
 
 
@@ -65,11 +65,11 @@ const Home = (props) => {
 
                 }}>{"Todos los campos son obligatorios"}</p> : null}
                 <Box component={Paper} padding={2} style={{ marginBottom: '2rem' }}>
+                    <Typography variant="h5" align="center" color="textSecondary">Crea un nuevo Informe</Typography>
                     <form onSubmit={guardarIframe} noValidate>
                         <TextField
                             name="iframe"
-                            label={'URL'}
-
+                            label={'URL del informe'}
                             margin={'dense'}
                             value={iframe}
                             fullWidth={true}
@@ -78,8 +78,7 @@ const Home = (props) => {
                         />
                         <TextField
                             name="nombre"
-                            label={'Nombre'}
-
+                            label={'Nombre del informe'}
                             margin={'dense'}
                             value={nombre}
                             fullWidth={true}
@@ -93,7 +92,7 @@ const Home = (props) => {
                             fullWidth={true}
                             variant={'contained'}
                         >
-                            Guardar Iframe
+                            Guardar
                     </Button>
                     </form>
                     <Button
@@ -103,7 +102,7 @@ const Home = (props) => {
                         variant={'text'}
                         onClick={() => history.replace('/dashboard/admiiframe')}
                     >
-                        ir A administración
+                        ir A administración de Informes
                       </Button>
                 </Box>
             </div>
