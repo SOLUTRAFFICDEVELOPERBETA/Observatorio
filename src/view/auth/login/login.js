@@ -32,7 +32,7 @@ const Login = props => {
             if (!valid) return;
             authService.doSignInWithEmailAndPassword(formData.email.trim(), formData.password).then(
                 res => {
-                    history.replace('/observatorio');
+                    history.replace('/dashboard/home');
                 }).catch(error => { setMenssageError(true) })
         }
     });
@@ -61,7 +61,6 @@ const Login = props => {
       </div>
         )
     }
-
     return (
         <div className={classes.root}>
             <Paper className={classes.paper}>

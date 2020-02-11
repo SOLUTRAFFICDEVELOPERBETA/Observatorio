@@ -29,7 +29,7 @@ export const useField = (name, defaultValue, validators, form) => {
         if (!dirty) return;
         form.validateFields([name]);
 
-    }, [value, dirty, name, form]);
+    }, [value]);
     let field = {
         name,
         value,

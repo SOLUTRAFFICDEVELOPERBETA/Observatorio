@@ -17,12 +17,15 @@ const DashboardLayout = (props) => {
 
 
     useEffect(() => {
+        setIsLoading(true)
         usersService.doObserveCurrentUser(user => {
             if (!user.exists) {
                 alert("Usuario no registrado");
                 history.replace('/auth/login/');
             }
-            setUser(user.data())
+            if (user.data()) {
+                setUser(user.data())
+            }
             setIsLoading(false);
         })
 
@@ -32,10 +35,10 @@ const DashboardLayout = (props) => {
         return <Redirect to={'/auth/login/'} />;
     }
 
-    
+
     return (
         <>
-            {isLoading ? <SpinkiSpinner/> : (
+            {isLoading ? <SpinkiSpinner /> : (
                 <UserContext.Provider value={user}>
                     <div className={classes.root}>
                         <Nav
